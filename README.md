@@ -55,3 +55,12 @@ Este planejamento segue o cronograma de 4 semanas:
 * **Semana 4: Documentação e Preparação**
     * **Entrega:** Versão final do código (Cliente e Servidor), Documentação (README finalizado) e Roteiro da Apresentação.
     * **Marco:** Projeto 100% finalizado, documentado e pronto para a apresentação.
+
+
+## Protótipo Funcional Em Linha De Comando
+
+<img width="802" height="208" alt="image" src="https://github.com/user-attachments/assets/70594b2a-dfdc-4a30-8f6c-202784180633" />
+
+<img width="384" height="139" alt="image" src="https://github.com/user-attachments/assets/51c3a987-3d66-4fc7-8af5-9067620771d1" />
+
+
