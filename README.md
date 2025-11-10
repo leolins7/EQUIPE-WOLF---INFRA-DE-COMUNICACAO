@@ -1,66 +1,149 @@
-# EQUIPE-WOLF---INFRA-DE-COMUN.
-
-# INTEGRANTES: 
-
-* João Eduardo Monteiro Cavalcanti
-
-* Jonas de Lima Neto
-
-* Leonardo Felipe Demétrio Lins Nascimento
 
 
-# Projeto: Emulador de Dispositivo I/O Simples (Simulação Profinet)
 
-## 1. Tema do Projeto
+---
 
-Desenvolvimento de um sistema Cliente/Servidor para simular a comunicação entre um controlador industrial (Profinet) e um dispositivo de campo (Dispositivo I/O), utilizando protocolos de comunicação simples baseados em TCP/IP.
+# 🐺 EQUIPE WOLF — INFRA DE COMUNICAÇÃO
 
-## 2. Escopo da Solução
+## 👥 Integrantes
 
-O objetivo é criar duas aplicações em Python que se comunicam pela rede:
+* **João Eduardo Monteiro Cavalcanti**
+* **Jonas de Lima Neto**
+* **Leonardo Felipe Demétrio Lins Nascimento**
 
-* **O Servidor (Dispositivo I/O Simples):**
-    * Esta aplicação simula um dispositivo de campo (como um sensor ou atuador).
-    * Ela ficará "escutando" em uma porta de rede específica (usando `socket` TCP).
-    * Manterá um estado interno simulado (ex: "LIGADO" ou "DESLIGADO").
-    * Responderá a comandos simples enviados pelo Cliente para ler ou alterar esse estado.
+---
 
-* **O Cliente (Controlador Simulado):**
-    * Esta aplicação simula o controlador (CLP/Controlador Profinet).
-    * Ela irá iniciar a conexão com o Servidor.
-    * Enviará comandos definidos, como "LER_STATUS" (para ler o estado) e "SET_ESTADO [novo_estado]" (para mudar o estado simulado do dispositivo I/O).
-    * Receberá e exibirá as respostas do Servidor.
+## 💡 Projeto: Emulador de Dispositivo I/O Simples (Simulação Profinet)
 
-## 3. Tecnologias e Bibliotecas
+### 🎯 1. Tema do Projeto
 
-* **Linguagem de Programação:** Python 3
-* **Biblioteca Principal:** `socket` (biblioteca nativa do Python para comunicação em rede via TCP/IP). Não serão necessárias bibliotecas externas para a funcionalidade principal.
+Desenvolvimento de um sistema **Cliente/Servidor** para simular a comunicação entre um **controlador industrial (Profinet)** e um **dispositivo de campo (Dispositivo I/O)**, utilizando protocolos de comunicação simples baseados em **TCP/IP**.
 
-## 4. Divisão de Tarefas (Cronograma)
+---
 
-Este planejamento segue o cronograma de 4 semanas:
+### 🧩 2. Escopo da Solução
 
-* **Semana 1: Planejamento e Configuração**
-    * **Entrega:** Documento de Planejamento Inicial (este documento).
-    * **Marco:** Ambiente Python configurado e código inicial (esqueleto) do **Servidor TCP** (Possibilidade 1) pronto, capaz de aceitar uma conexão.
+O objetivo é criar **duas aplicações em Python** que se comunicam pela rede local:
 
-* **Semana 2: Desenvolvimento Básico**
-    * **Entrega:** Protótipo funcional do Servidor (Possibilidade 1).
-    * **Marco:** Servidor com a funcionalidade de Rede *Core* implementada: capaz de manter o estado ("LIGADO"/"DESLIGADO") e responder a um comando básico de leitura (ex: "LER_STATUS").
+#### 🖥️ Servidor (`servidor.py`) — *Dispositivo I/O Simples*
 
-* **Semana 3: Refinamento e Interface (Cliente)**
-    * **Entrega:** Aplicação completa com interface básica.
-    * **Marco:** Desenvolvimento do **Cliente (Possibilidade 2)**, capaz de se conectar ao servidor e enviar comandos de leitura e escrita. Tratamento de erros básicos implementado.
+* Simula um dispositivo de campo (como um **sensor** ou **atuador**).
+* Fica “escutando” em uma porta específica da rede (via **socket TCP**).
+* Utiliza **threading** para aceitar múltiplos clientes simultaneamente.
+* Mantém um **estado interno simulado**, incluindo:
 
-* **Semana 4: Documentação e Preparação**
-    * **Entrega:** Versão final do código (Cliente e Servidor), Documentação (README finalizado) e Roteiro da Apresentação.
-    * **Marco:** Projeto 100% finalizado, documentado e pronto para a apresentação.
+  * Status (ligado/desligado)
+  * Temperatura
+  * Código de erro
+* Responde a **comandos enviados pelo cliente** para leitura e alteração de estado.
+
+#### 💻 Cliente (`cliente.py`) — *Controlador Simulado*
+
+* Simula o **controlador industrial (CLP/Profinet)**.
+* Inicia a conexão com o servidor.
+* Envia comandos definidos para ler e escrever dados no dispositivo.
+* Recebe e exibe as respostas do servidor em tempo real.
+
+---
+
+### ⚙️ 3. Tecnologias Utilizadas
+
+| Categoria                  | Tecnologia            |
+| -------------------------- | --------------------- |
+| **Linguagem**              | Python 3              |
+| **Bibliotecas Principais** | `socket`, `threading` |
+
+---
+
+### 🚀 4. Como Executar o Projeto
+
+Para testar a simulação, abra **dois ou mais terminais** na pasta do projeto.
+
+#### 🧠 Passo 1: Iniciar o Servidor
+
+No **primeiro terminal**, execute o servidor:
+
+```bash
+python servidor.py
+```
+
+Saída esperada:
+
+```
+--- Iniciando Servidor em 127.0.0.1:65432 ---
+Servidor pronto. Aguardando conexões...
+```
+
+#### ⚡ Passo 2: Iniciar o Cliente
+
+No **segundo terminal**, execute o cliente:
+
+```bash
+python cliente.py
+```
+
+Saída esperada:
+
+```
+--- Iniciando Cliente ---
+Tentando conectar ao Servidor em 127.0.0.1:65432...
+Conectado ao Servidor!
+```
+
+---
+
+### 🧾 5. Comandos Disponíveis
+
+Após a conexão, o cliente exibirá o menu de comandos:
+
+```
+--- Comandos Disponíveis ---
+  LER_STATUS
+  SET_ESTADO LIGADO / SET_ESTADO DESLIGADO
+  LER_TEMPERATURA
+  LER_ERRO
+  SET_ERRO [numero]  (ex: SET_ERRO 404)
+  LER_COMPLETO
+  SAIR
+```
+
+#### 🛠️ Descrição dos Comandos
+
+| Comando                         | Função                                                                |
+| ------------------------------- | --------------------------------------------------------------------- |
+| `LER_STATUS`                    | Consulta o status atual do dispositivo (LIGADO/DESLIGADO).            |
+| `SET_ESTADO [LIGADO/DESLIGADO]` | Altera o status principal do dispositivo.                             |
+| `LER_TEMPERATURA`               | Consulta a temperatura simulada.                                      |
+| `LER_ERRO`                      | Mostra o código de erro atual.                                        |
+| `SET_ERRO [numero]`             | Define um novo código de erro (ex: `SET_ERRO 101`).                   |
+| `LER_COMPLETO`                  | Solicita o estado completo do dispositivo (em formato de dicionário). |
+| `SAIR`                          | Encerra a conexão do cliente.                                         |
+
+---
+
+### 🧪 6. Exemplo de Uso (Protótipo Funcional)
+
+#### 🖼️ Exemplo 1 — Comunicação entre Cliente e Servidor
+
+O servidor (terminal superior) recebe comandos do cliente (terminal inferior) e responde conforme o protocolo definido:
+
+<img width="851" height="418" alt="image" src="https://github.com/user-attachments/assets/6996d27c-af26-417a-8785-9e86e70146ad" />
+
+<img width="905" height="576" alt="image" src="https://github.com/user-attachments/assets/87a45903-eccc-4a08-b6b9-44c9f8323412" />
 
 
-## Protótipo Funcional Em Linha De Comando
 
-<img width="802" height="208" alt="image" src="https://github.com/user-attachments/assets/70594b2a-dfdc-4a30-8f6c-202784180633" />
+#### 🖼️ Exemplo 2 — Comando Inválido
 
-<img width="384" height="139" alt="image" src="https://github.com/user-attachments/assets/51c3a987-3d66-4fc7-8af5-9067620771d1" />
+Quando o cliente envia um comando não reconhecido, o servidor retorna uma mensagem de erro:
+
+<img width="441" height="80" alt="image" src="https://github.com/user-attachments/assets/018990c3-922c-4284-8692-df1339ba8d32" />
 
 
+---
+
+### 📘 7. Conclusão
+
+O projeto **EQUIPE WOLF — Infra de Comunicação** simula, de forma didática, o comportamento básico de um **sistema industrial com comunicação Profinet**, permitindo compreender o funcionamento entre um **controlador (CLP)** e um **dispositivo I/O**, com ênfase na **comunicação via TCP/IP** e no **uso de threads para conexões simultâneas**.
+
+---
